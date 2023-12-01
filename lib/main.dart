@@ -12,16 +12,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner:false,
       title: 'Flutter Demo',
       routes: <String,WidgetBuilder>{
-        "/home":(context) => const MyHomePage(title: 'Flutter Demo Home Page444'),
+        "/home":(context) => const MyHomePage(title: 'gohub'),
         "/login":(context)=>const LoginPage(),
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page444'),
+      home: const MyHomePage(title: 'gohub'),
     );
   }
 }
