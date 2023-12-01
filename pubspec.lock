@@ -83,6 +83,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  hi_net:
+    dependency: "direct main"
+    description:
+      path: "component/hi_net"
+      relative: true
+    source: path
+    version: "0.0.1"
   http_parser:
     dependency: transitive
     description:
@@ -210,3 +217,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=3.0.0 <4.0.0"
+  flutter: ">=1.17.0"

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gohub/http/dao/login_dao.dart';
 import 'package:gohub/utils/string.dart';
 import 'package:gohub/widget/bar/appbar.dart';
 import 'package:gohub/widget/login/login_button.dart';
@@ -13,11 +14,21 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final dio = Dio();
+
   bool protect = false; //是否遮眼
   bool loginEnable = false; //是否可以提交
   String? userName;
   String? password;
+  String captcha_id="";
+  String captcha_answer="";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _init();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,8 +84,17 @@ class _LoginPageState extends State<LoginPage> {
 
   //提交
   void login() async {
-    print("-----打印一下:$userName ,$password -------");
-    final response = await dio.post('http://110.41.7.44:9000/v1/auth/verify-codes/captcha');
-    print("结果 $response");
+    // print("-----打印一下:$userName ,$password -------");
+    // final response = await dio.post('http://110.41.7.44:9000/v1/auth/verify-codes/captcha');
+    // print("结果 $response");
+    LoginDao.login(userName, password, captcha_id, captcha_answer);
+  }
+  //初始化
+  _init()async{
+    // final dio = Dio();
+    // final response = await dio.post('http://110.41.7.44:9000/v1/auth/verify-codes/captcha?');
+    // print("自己二维码结果 $response");
+    var res= await LoginDao.getCaptcha();
+    print("封装的二维码结果: $res");
   }
 }

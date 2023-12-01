@@ -13,7 +13,7 @@ class LoginButton extends StatelessWidget {
       widthFactor: 1,
       child: MaterialButton(
         onPressed: enable?onPressed:null,
-        shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(6)),
+        shape: BeveledRectangleBorder(borderRadius: BorderRadius.circular(3)),
         height: 45,
         disabledColor: primary[50],
         color: primary,
