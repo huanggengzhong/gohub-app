@@ -54,6 +54,9 @@ class HiNet {
       case 403:
         hiError = NeedAuth(result.toString(), data: result);
         break;
+      case 422:
+        return result;
+
       default:
         //如果error不为空，则复用现有的error
         hiError =

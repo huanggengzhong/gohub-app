@@ -5,8 +5,9 @@ import 'package:gohub/widget/bar/appbar.dart';
 import 'package:gohub/widget/login/login_button.dart';
 import 'package:gohub/widget/login/login_effect.dart';
 import 'package:gohub/widget/login/login_input.dart';
-import 'package:dio/dio.dart';
-
+import 'package:gohub/widget/login/login_verify.dart';
+import 'dart:convert';
+import 'package:gohub/utils/toast.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
   @override
@@ -21,10 +22,10 @@ class _LoginPageState extends State<LoginPage> {
   String? password;
   String captcha_id="";
   String captcha_answer="";
+  String img_url="";
 
   @override
   void initState() {
-    // TODO: implement initState
     _init();
     super.initState();
   }
@@ -41,9 +42,16 @@ class _LoginPageState extends State<LoginPage> {
                 userName = value;
                 checkInput();
               }),
+              LoginVerify("图形验证码", "请输入图形验证码",img_url,keyboardType:TextInputType.number,onChange: (value){
+                captcha_answer=value;
+                checkInput();
+              }, onClick:(){
+                //点击事件
+                _init();
+              }),
               LoginInput(
-                "密码",
-                "请输入密码",
+                "登录密码",
+                "请输入登录密码",
                 obscureText: true,
                 onChange: (value) {
                   password = value;
@@ -55,6 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                   });
                 },
               ),
+
               Padding(
                 padding: EdgeInsets.only(left: 20, right: 20, top: 20),
                 child: LoginButton(
@@ -72,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
   //检查
   checkInput() {
     bool enable;
-    if (isNotEmpty(userName) && isNotEmpty(password)) {
+    if (isNotEmpty(userName) && isNotEmpty(password) &&isNotEmpty(captcha_answer)) {
       enable = true;
     } else {
       enable = false;
@@ -84,17 +93,23 @@ class _LoginPageState extends State<LoginPage> {
 
   //提交
   void login() async {
-    // print("-----打印一下:$userName ,$password -------");
-    // final response = await dio.post('http://110.41.7.44:9000/v1/auth/verify-codes/captcha');
-    // print("结果 $response");
-    LoginDao.login(userName, password, captcha_id, captcha_answer);
+   var res= await LoginDao.login(userName, password, captcha_id, captcha_answer);
+
+   if(res["code"]!=200){
+     $Toast.show(json.encode(res["errors"]));
+   }else{
+     $Toast.show("登录成功");
+     Navigator.of(context).pushNamed('/home');
+   }
   }
   //初始化
   _init()async{
-    // final dio = Dio();
-    // final response = await dio.post('http://110.41.7.44:9000/v1/auth/verify-codes/captcha?');
-    // print("自己二维码结果 $response");
     var res= await LoginDao.getCaptcha();
-    print("封装的二维码结果: $res");
+    if(res["code"]==200){
+    setState(() {
+      img_url=res["data"];
+      captcha_id=res["captcha_id"];
+    });
+    }
   }
 }

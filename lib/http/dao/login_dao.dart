@@ -22,7 +22,6 @@ class LoginDao {
     .add("captcha_id", captcha_id)
     .add("captcha_answer", captcha_answer);
 
-    var result =await HiNet.getInstance().fire(request);
-    print("登录结果信息打印:$result");
+    return await HiNet.getInstance().fire(request);
   }
 }
