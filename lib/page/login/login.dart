@@ -8,6 +8,7 @@ import 'package:gohub/widget/login/login_input.dart';
 import 'package:gohub/widget/login/login_verify.dart';
 import 'dart:convert';
 import 'package:gohub/utils/toast.dart';
+import 'package:gohub/route/navigator.dart';
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
   @override
@@ -81,11 +82,13 @@ class _LoginPageState extends State<LoginPage> {
   //检查
   checkInput() {
     bool enable;
-    if (isNotEmpty(userName) && isNotEmpty(password) &&isNotEmpty(captcha_answer)) {
-      enable = true;
-    } else {
-      enable = false;
-    }
+    enable = true;
+    //待解开
+    // if (isNotEmpty(userName) && isNotEmpty(password) &&isNotEmpty(captcha_answer)) {
+    //   enable = true;
+    // } else {
+    //   enable = false;
+    // }
     setState(() {
       loginEnable = enable;
     });
@@ -93,14 +96,17 @@ class _LoginPageState extends State<LoginPage> {
 
   //提交
   void login() async {
-   var res= await LoginDao.login(userName, password, captcha_id, captcha_answer);
-
-   if(res["code"]!=200){
-     $Toast.show(json.encode(res["errors"]));
-   }else{
-     $Toast.show("登录成功");
-     Navigator.of(context).pushNamed('/home');
-   }
+    HiNavigator.getInstance().onJumpTo(RouteStatus.home);
+    //待解开
+   // var res= await LoginDao.login(userName, password, captcha_id, captcha_answer);
+   //
+   // if(res["code"]!=200){
+   //   $Toast.show(json.encode(res["errors"]));
+   // }else{
+   //   $Toast.show("登录成功");
+   //   // Navigator.of(context).pushNamed('/home');
+   //   HiNavigator.getInstance().onJumpTo(RouteStatus.home);
+   // }
   }
   //初始化
   _init()async{

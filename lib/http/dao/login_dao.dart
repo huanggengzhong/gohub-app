@@ -1,9 +1,9 @@
 import 'package:gohub/http/request/base_request.dart';
 import 'package:gohub/http/request/login_request.dart';
 import 'package:hi_net/hi_net.dart';
-
+import 'package:hi_cache/hi_cache.dart';
 class LoginDao {
-
+  static const BOARDING_PASS = "boarding-pass";
   static getCaptcha()async{
     BaseRequest request= CaptchaRequest();
    return await HiNet.getInstance().fire(request);
@@ -23,5 +23,8 @@ class LoginDao {
     .add("captcha_answer", captcha_answer);
 
     return await HiNet.getInstance().fire(request);
+  }
+  static getBoardingPass() {
+    return HiCache.getInstance().get(BOARDING_PASS);
   }
 }

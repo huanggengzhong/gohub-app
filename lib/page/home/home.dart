@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../route/navigator.dart';
+
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -79,7 +81,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               child: Text('登录页面'),
               onPressed: () {
-                Navigator.of(context).pushNamed('/login');
+                HiNavigator.getInstance().onJumpTo(RouteStatus.login);
+              },
+            ),
+            ElevatedButton(
+              child: Text('测试去喜欢页面'),
+              onPressed: () {
+                HiNavigator.getInstance().onJumpTo(RouteStatus.favorite);
+
               },
             )
           ],

@@ -1,29 +1,57 @@
 import 'package:gohub/page/home/home.dart';
 import 'package:gohub/page/login/login.dart';
 import 'package:flutter/material.dart';
+import 'package:gohub/provider/theme_provider.dart';
+import 'package:gohub/utils/defend.dart';
+import 'package:hi_cache/hi_cache.dart';
+import 'package:provider/provider.dart';
+import 'provider/provider.dart';
+import 'package:gohub/route/index.dart';
 void main() {
-  runApp(const MyApp());
+  Defend().run(MyApp());
+  // runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-  // This widget is the root of your application.
+class _MyAppState extends State<MyApp> {
+  BiliRouteDelegate _routeDelegate = BiliRouteDelegate();
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner:false,
-      title: 'Flutter Demo',
-      routes: <String,WidgetBuilder>{
-        "/home":(context) => const MyHomePage(title: 'gohub'),
-        "/login":(context)=>const LoginPage(),
-      },
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'gohub'),
+    return FutureBuilder(
+      //初始化缓存配置
+        future: HiCache.preInit(),
+        builder:(BuildContext context,AsyncSnapshot<HiCache> snapshot){
+          return MultiProvider(
+              providers: topProviders,
+              child: Consumer<ThemeProvider>(builder: (BuildContext context,
+                  ThemeProvider themeProvider, Widget? child) {
+                //定义路由
+                var widget = snapshot.connectionState == ConnectionState.done
+                    ? Router(routerDelegate: _routeDelegate)
+                    : Scaffold(
+                  body: Center(child: CircularProgressIndicator()),
+                );
+                return MaterialApp(
+                  home: widget,
+                  theme: themeProvider.getTheme(),
+                  darkTheme: themeProvider.getTheme(isDarkMode: true),
+                  themeMode: themeProvider.getThemeMode(),
+                  title: 'Flutter Bili',
+                );
+              }));
+        }
     );
+
+
+
+
   }
 }
+
+
+
 
