@@ -4,7 +4,7 @@ import 'package:gohub/page/favorite/index.dart';
 import 'package:gohub/page/home/home.dart';
 import 'package:gohub/page/profile/index.dart';
 import 'package:gohub/page/ranking/index.dart';
-import 'package:hi_base/color.dart';
+import 'package:gohub/style/color.dart';
 
 ///底部导航
 class BottomNavigator extends StatefulWidget {
@@ -24,7 +24,7 @@ class _BottomNavigatorState extends State<BottomNavigator> {
   @override
   Widget build(BuildContext context) {
     _pages = [
-      MyHomePage(title: "hah"),
+      MyHomePage(title: "go hub"),
       RankingPage(),
       FavoritePage(),
       ProfilePage()
@@ -35,7 +35,6 @@ class _BottomNavigatorState extends State<BottomNavigator> {
           .onBottomTabChange(initialPage, _pages[initialPage]);
       _hasBuild = true;
     }
-
     return Scaffold(
       body: PageView(
         controller: _controller,

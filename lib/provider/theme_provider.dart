@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:gohub/utils/constants.dart';
-import 'package:hi_base/color.dart';
+import 'package:gohub/style/color.dart';
 import 'package:hi_cache/hi_cache.dart';
 
 extension ThemeModeExtension on ThemeMode {

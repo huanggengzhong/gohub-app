@@ -7,6 +7,8 @@ import 'package:hi_cache/hi_cache.dart';
 import 'package:provider/provider.dart';
 import 'provider/provider.dart';
 import 'package:gohub/route/index.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 void main() {
   Defend().run(MyApp());
   // runApp(const MyApp());
@@ -19,12 +21,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   BiliRouteDelegate _routeDelegate = BiliRouteDelegate();
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      //初始化缓存配置
+        //初始化缓存配置
         future: HiCache.preInit(),
-        builder:(BuildContext context,AsyncSnapshot<HiCache> snapshot){
+        builder: (BuildContext context, AsyncSnapshot<HiCache> snapshot) {
           return MultiProvider(
               providers: topProviders,
               child: Consumer<ThemeProvider>(builder: (BuildContext context,
@@ -33,25 +36,23 @@ class _MyAppState extends State<MyApp> {
                 var widget = snapshot.connectionState == ConnectionState.done
                     ? Router(routerDelegate: _routeDelegate)
                     : Scaffold(
-                  body: Center(child: CircularProgressIndicator()),
-                );
-                return MaterialApp(
-                  home: widget,
-                  theme: themeProvider.getTheme(),
-                  darkTheme: themeProvider.getTheme(isDarkMode: true),
-                  themeMode: themeProvider.getThemeMode(),
-                  title: 'Flutter Bili',
-                );
+                        body: Center(child: CircularProgressIndicator()),
+                      );
+                //填入设计稿中设备的屏幕尺寸,单位dp
+                return ScreenUtilInit(
+                    designSize: const Size(375, 667),//默认iphone8参考
+                    minTextAdapt: true,
+                    splitScreenMode: true,
+                    builder: (context, child) {
+                      return MaterialApp(
+                        home: widget,
+                        theme: themeProvider.getTheme(),
+                        darkTheme: themeProvider.getTheme(isDarkMode: true),
+                        themeMode: themeProvider.getThemeMode(),
+                        title: 'go hub',
+                      );
+                    });
               }));
-        }
-    );
-
-
-
-
+        });
   }
 }
-
-
-
-

@@ -119,5 +119,5 @@ class BiliRoutePath {
 
   BiliRoutePath.home() : location = "/";
 
-  BiliRoutePath.detail() : location = "/detail";
+  // BiliRoutePath.detail() : location = "/detail";
 }
