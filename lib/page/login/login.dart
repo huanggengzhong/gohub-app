@@ -82,13 +82,12 @@ class _LoginPageState extends State<LoginPage> {
   //检查
   checkInput() {
     bool enable;
-    enable = true;
-    //待解开
-    // if (isNotEmpty(userName) && isNotEmpty(password) &&isNotEmpty(captcha_answer)) {
-    //   enable = true;
-    // } else {
-    //   enable = false;
-    // }
+
+    if (isNotEmpty(userName) && isNotEmpty(password) &&isNotEmpty(captcha_answer)) {
+      enable = true;
+    } else {
+      enable = false;
+    }
     setState(() {
       loginEnable = enable;
     });

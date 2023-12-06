@@ -9,7 +9,8 @@ class HomeDao {
     // request.pathParams = categoryName;
     // request.add("sort", sort).add("order", order).add("page", page).add("per_page", per_page);
     var result = await HiNet.getInstance().fire(request);
-    return ApiResponse.fromJson(jsonDecode(result)).data;
-    ;
+    return result;
+    // return CategoryModel.fromJson(result);
+
   }
 }
