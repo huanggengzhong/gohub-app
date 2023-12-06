@@ -23,6 +23,13 @@ class HiNet {
   }
 
   Future fire(HiBaseRequest request) async {
+
+    String path=request.url();
+    // print("-----请求头-----");
+    // print(request.header);
+
+    var params=request?.params;
+
     HiNetResponse? response;
     var error;
     try {
@@ -30,17 +37,17 @@ class HiNet {
     } on HiNetError catch (e) {
       error = e;
       response = e.data;
-      printLog(e.message);
+      printLog(path,params,e.message);
     } catch (e) {
       //其它异常
       error = e;
-      printLog(e);
+      printLog(path,params,e);
     }
     if (response == null) {
-      printLog(error);
+      printLog(path,params,error);
     }
     var result = response?.data;
-    printLog(result);
+    printLog(path,params,result);
     var status = response?.statusCode;
     var hiError;
     switch (status) {
@@ -80,7 +87,7 @@ class HiNet {
     this._hiErrorInterceptor = interceptor;
   }
 
-  void printLog(log) {
-    print('hi_net.dart文件,printLog请求信息(含成功/失败):' + log.toString());
+  void printLog(path,params,log) {
+    print('请求地址:$path,请求参数:$params,请求结果:' + log.toString());
   }
 }

@@ -3,28 +3,35 @@ import 'package:gohub/http/request/login_request.dart';
 import 'package:hi_net/hi_net.dart';
 import 'package:hi_cache/hi_cache.dart';
 class LoginDao {
-  static const BOARDING_PASS = "boarding-pass";
+
+  static const AUTHOTIZATION_TOKEN = "Authorization";
   static getCaptcha()async{
     BaseRequest request= CaptchaRequest();
    return await HiNet.getInstance().fire(request);
 
   }
   static login(String? name,String? password,String captcha_id,String captcha_answer){
+    print("-------2023年12月06日10:57:45-------");
     return _send(name,password,captcha_id,captcha_answer);
   }
 
   static _send(String? name,String? password,String captcha_id,String captcha_answer)async{
     BaseRequest request =LoginRequest();
-    
     request
     .add("login_id", name!)
     .add("password", password!)
     .add("captcha_id", captcha_id)
     .add("captcha_answer", captcha_answer);
 
-    return await HiNet.getInstance().fire(request);
+    var result= await HiNet.getInstance().fire(request);
+    //保存token
+
+    if(result['code']==200 && result['token']!=null){
+      HiCache.getInstance().setString(AUTHOTIZATION_TOKEN, result['token']);
+    }
+    return result;
   }
-  static getBoardingPass() {
-    return HiCache.getInstance().get(BOARDING_PASS);
+  static getToken() {
+    return HiCache.getInstance().get(AUTHOTIZATION_TOKEN);
   }
 }

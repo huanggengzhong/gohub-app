@@ -12,10 +12,10 @@ class HiConstants {
   static headers() {
     ///设置请求头校验，注意留意：Console的log输出：flutter: received:
     Map<String, dynamic> header = {
-      HiConstants.authTokenK: HiConstants.authTokenV,
-      HiConstants.courseFlagK: HiConstants.courseFlagV
+      // HiConstants.authTokenK: HiConstants.authTokenV,
+      // HiConstants.courseFlagK: HiConstants.courseFlagV
     };
-    header[LoginDao.BOARDING_PASS] = LoginDao.getBoardingPass();
+    header[LoginDao.AUTHOTIZATION_TOKEN] = 'Bearer '+LoginDao.getToken();
     return header;
   }
 }

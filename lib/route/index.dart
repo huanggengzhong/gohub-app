@@ -30,7 +30,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
     HiNet.getInstance().setErrorInterceptor((error) {
       if (error is NeedLogin) {
         //清空失效的登录令牌
-        HiCache.getInstance().remove(LoginDao.BOARDING_PASS);
+        HiCache.getInstance().remove(LoginDao.AUTHOTIZATION_TOKEN);
         //拉起登录
         HiNavigator.getInstance().onJumpTo(RouteStatus.login);
       }
@@ -107,7 +107,7 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
     }
   }
 
-  bool get hasLogin => LoginDao.getBoardingPass() != null;
+  bool get hasLogin => LoginDao.getToken() != null;
 
   @override
   Future<void> setNewRoutePath(BiliRoutePath path) async {}

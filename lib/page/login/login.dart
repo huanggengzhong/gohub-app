@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gohub/http/dao/login_dao.dart';
 import 'package:gohub/utils/string.dart';
-import 'package:gohub/widget/bar/appbar.dart';
+import 'package:gohub/widget/common/appbar.dart';
 import 'package:gohub/widget/login/login_button.dart';
 import 'package:gohub/widget/login/login_effect.dart';
 import 'package:gohub/widget/login/login_input.dart';
@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: LoginButton(
                   '登录',
                   enable: loginEnable,
-                  onPressed: login,
+                  onPressed: _login,
                 ),
               )
             ],
@@ -95,18 +95,17 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   //提交
-  void login() async {
-    HiNavigator.getInstance().onJumpTo(RouteStatus.home);
-    //待解开
-   // var res= await LoginDao.login(userName, password, captcha_id, captcha_answer);
-   //
-   // if(res["code"]!=200){
-   //   $Toast.show(json.encode(res["errors"]));
-   // }else{
-   //   $Toast.show("登录成功");
-   //   // Navigator.of(context).pushNamed('/home');
-   //   HiNavigator.getInstance().onJumpTo(RouteStatus.home);
-   // }
+  void _login() async {
+
+   var res= await LoginDao.login(userName, password, captcha_id, captcha_answer);
+
+   if(res["code"]!=200){
+     $Toast.show(json.encode(res["errors"]));
+   }else{
+     $Toast.show("登录成功");
+
+     HiNavigator.getInstance().onJumpTo(RouteStatus.home);
+   }
   }
   //初始化
   _init()async{
