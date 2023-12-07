@@ -7,7 +7,7 @@ import 'package:gohub/page/profile/index.dart';
 // import 'package:flutter_bili_app/page/video_detail_page.dart';
 import 'package:gohub/provider/theme_provider.dart';
 import 'package:gohub/widget/common/navigation_bar.dart';
-import 'package:gohub/style/color.dart';
+import 'package:hi_base/color.dart';
 import 'package:provider/provider.dart';
 
 ///修改状态栏

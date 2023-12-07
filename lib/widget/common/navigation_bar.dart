@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gohub/provider/theme_provider.dart';
-import 'package:gohub/style/color.dart';
+import 'package:hi_base/color.dart';
 import 'package:provider/provider.dart';
 
 import 'package:gohub/utils/view.dart';

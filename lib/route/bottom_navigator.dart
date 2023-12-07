@@ -4,7 +4,7 @@ import 'package:gohub/page/favorite/index.dart';
 import 'package:gohub/page/home/home.dart';
 import 'package:gohub/page/profile/index.dart';
 import 'package:gohub/page/ranking/index.dart';
-import 'package:gohub/style/color.dart';
+import 'package:hi_base/color.dart';
 
 ///底部导航
 class BottomNavigator extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gohub/provider/theme_provider.dart';
-import 'package:gohub/style/color.dart';
+import 'package:hi_base/color.dart';
 import 'package:provider/provider.dart';
 import 'package:underline_indicator/underline_indicator.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,7 +37,7 @@ class HiTab extends StatelessWidget {
         indicator: UnderlineIndicator(
             strokeCap: StrokeCap.square,
             borderSide: BorderSide(color: primary, width: borderWidth.w),
-            insets: EdgeInsets.only(left: insets, right: insets.r)),
+            insets: EdgeInsets.only(left: insets.r, right: insets.r)),
         tabs: tabs);
   }
 }

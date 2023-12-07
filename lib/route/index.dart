@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:gohub/page/home/home.dart';
 import 'package:gohub/page/favorite/index.dart';
+import 'package:gohub/page/video/index.dart';
 import 'package:gohub/route/navigator.dart';
 import 'package:gohub/route/bottom_navigator.dart';
 import 'package:hi_net/hi_net.dart';
@@ -60,6 +61,8 @@ class BiliRouteDelegate extends RouterDelegate<BiliRoutePath>
       page = pageWrap(LoginPage());
     }else if(routeStatus==RouteStatus.favorite){
       page=pageWrap(FavoritePage());
+    }else if(routeStatus==RouteStatus.video){
+      page=pageWrap(VideoPage());
     }
     //重新创建一个数组，否则pages因引用没有改变路由不会生效
     tempPages = [...tempPages, page];

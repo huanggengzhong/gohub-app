@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gohub/page/favorite/index.dart';
+import 'package:gohub/page/video/index.dart';
 import 'package:gohub/route/bottom_navigator.dart';
 import 'package:gohub/page/login/login.dart';
 import 'package:gohub/page/home/home.dart';
@@ -32,7 +33,8 @@ enum RouteStatus {
   unknown,
   notice,
   darkMode,
-  favorite
+  favorite,
+  video,
 }
 
 ///获取page对应的RouteStatus
@@ -47,6 +49,8 @@ RouteStatus getStatus(MaterialPage page) {
     return RouteStatus.home;
   } else if(page.child is FavoritePage){
     return RouteStatus.favorite;
+  } else if(page.child is VideoPage){
+    return RouteStatus.video;
   } else {
     return RouteStatus.unknown;
   }
