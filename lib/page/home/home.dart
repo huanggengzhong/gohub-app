@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gohub/http/dao/home_dao.dart';
@@ -20,10 +19,12 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin,WidgetsBindingObserver {
+class _MyHomePageState extends State<MyHomePage>
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   bool _isLoading = true;
   List<CategoryMo.Data> categoryList = [];
   late TabController _controller;
+  final _search_controller = TextEditingController();
 
   @override
   void initState() {
@@ -31,6 +32,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin,W
     _controller = TabController(length: categoryList.length, vsync: this);
     loadData();
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -47,8 +49,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin,W
       case AppLifecycleState.inactive: // 处于这种状态的应用程序应该假设它们可能在任何时候暂停。
         break;
       case AppLifecycleState.resumed: //从后台切换前台，界面可见
-      print("从后台切换前台");
-      //fix Android压后台首页状态栏字体颜色变白，详情页状态栏字体变黑问题
+        print("从后台切换前台");
+        //fix Android压后台首页状态栏字体颜色变白，详情页状态栏字体变黑问题
         changeStatusBar();
         break;
       case AppLifecycleState.paused: // 界面不可见，后台
@@ -58,6 +60,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin,W
         break;
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin,W
       _controller = TabController(length: res.data?.length ?? 0, vsync: this);
     }
     setState(() {
-      categoryList = res.data??[];
+      categoryList = res.data ?? [];
       _isLoading = false;
     });
   }
@@ -161,24 +164,32 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin,W
             ),
           ),
           Expanded(
-            child: Padding(
-              padding: EdgeInsets.only(left: 15.r, right: 15.r),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16.w),
-                  child: InkWell(
-                    onTap: () {
-                      // print("点击搜索");
-                    },
-                    child: Container(
-                      padding: EdgeInsets.only(left: 10.r),
-                      height: 32.h,
-                      alignment: Alignment.centerLeft,
-                      decoration: BoxDecoration(color: Colors.grey[100]),
-                      child: const Icon(Icons.search, color: Colors.grey),
-                    ),
-                  )),
-            ),
-          ),
+              child: Padding(
+            padding: EdgeInsets.only(left: 15.r, right: 15.r),
+            child: TextField(
+                style:  TextStyle(fontSize: 13.sp),
+                controller: _search_controller,
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                  labelText: "",
+                  hintText: "请输入要搜索的内容",
+                  floatingLabelBehavior: FloatingLabelBehavior.auto,
+                  contentPadding:
+                       EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.w),
+                    borderSide: BorderSide.none,
+                  ),
+                  filled: true,
+                ),
+                maxLines: null,
+                textInputAction: TextInputAction.search,
+                onSubmitted: (value) {
+                  print("-----搜索值");
+                  print(value);
+                  print(_search_controller.text);
+                }),
+          )),
           InkWell(
             onTap: () {},
             child: Icon(

@@ -1,8 +1,8 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hi_barrage/hi_barrage.dart';
 import 'package:hi_base/color.dart';
-import 'dart:io';
 import 'package:hi_video/video_view.dart';
 import 'package:gohub/widget/common/navigation_bar.dart';
 import 'package:gohub/widget/video/appbar.dart';
@@ -11,7 +11,6 @@ import 'package:gohub/provider/theme_provider.dart';
 import 'package:gohub/utils/constants.dart';
 import 'package:gohub/utils/view.dart';
 import 'package:flutter_overlay/flutter_overlay.dart';
-
 import 'package:gohub/widget/video/barrage_input.dart';
 import 'package:gohub/widget/video/barrage_switch.dart';
 class VideoPage extends StatefulWidget {
@@ -22,7 +21,6 @@ class VideoPage extends StatefulWidget {
 }
 
 class _VideoPageState extends State<VideoPage> with TickerProviderStateMixin {
-  // String url = "https://o.devio.org/files/video/v=NGoOpniJwnM.mp4";
   String url = "https://frontend-1251027788.cos.ap-guangzhou.myqcloud.com/fuli/movie.mp4";
   String cover = "https://o.devio.org/images/fa/woman-3083379__340.webp";
   String vid="BV1WV411y7F8";
